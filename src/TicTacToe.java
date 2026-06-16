@@ -17,7 +17,12 @@ public class TicTacToe {
         printBoard();
 
         int slot = getUserSlot();
+        int row = getRowFromSlot(slot);
+        int col = getColFromSlot(slot);
+
         System.out.println("Slot entered: " + slot);
+        System.out.println("Row: " + row);
+        System.out.println("Column: " + col);
     }
 
     static void initializeBoard() {
@@ -59,6 +64,14 @@ public class TicTacToe {
     static int getUserSlot() {
         System.out.print("Enter slot number (1-9): ");
         return scanner.nextInt();
+    }
+
+    static int getRowFromSlot(int slot) {
+        return (slot - 1) / 3;
+    }
+
+    static int getColFromSlot(int slot) {
+        return (slot - 1) % 3;
     }
 
     static void printBoard() {
