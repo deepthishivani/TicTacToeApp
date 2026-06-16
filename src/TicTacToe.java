@@ -18,13 +18,27 @@ public class TicTacToe {
         printBoard();
 
         for (int turn = 1; turn <= 9; turn++) {
+            char currentSymbol;
+
             if (isHumanTurn) {
                 makeHumanMove();
+                currentSymbol = humanSymbol;
             } else {
                 makeComputerMove();
+                currentSymbol = computerSymbol;
             }
 
             printBoard();
+
+            if (checkWinner(currentSymbol)) {
+                if (currentSymbol == humanSymbol) {
+                    System.out.println("Human wins!");
+                } else {
+                    System.out.println("Computer wins!");
+                }
+                return;
+            }
+
             isHumanTurn = !isHumanTurn;
         }
 
@@ -113,6 +127,30 @@ public class TicTacToe {
 
         placeMove(slot, computerSymbol);
         System.out.println("Computer chose slot: " + slot);
+    }
+
+    static boolean checkWinner(char symbol) {
+        for (int row = 0; row < 3; row++) {
+            if (board[row][0] == symbol && board[row][1] == symbol && board[row][2] == symbol) {
+                return true;
+            }
+        }
+
+        for (int col = 0; col < 3; col++) {
+            if (board[0][col] == symbol && board[1][col] == symbol && board[2][col] == symbol) {
+                return true;
+            }
+        }
+
+        if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) {
+            return true;
+        }
+
+        if (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol) {
+            return true;
+        }
+
+        return false;
     }
 
     static int getRowFromSlot(int slot) {
