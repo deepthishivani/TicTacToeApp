@@ -17,9 +17,18 @@ public class TicTacToe {
         displayTossResult();
         printBoard();
 
-        makeComputerMove();
-        System.out.println("Computer made a move.");
-        printBoard();
+        for (int turn = 1; turn <= 9; turn++) {
+            if (isHumanTurn) {
+                makeHumanMove();
+            } else {
+                makeComputerMove();
+            }
+
+            printBoard();
+            isHumanTurn = !isHumanTurn;
+        }
+
+        System.out.println("Game loop completed.");
     }
 
     static void initializeBoard() {
@@ -55,6 +64,21 @@ public class TicTacToe {
 
         System.out.println("Human Symbol: " + humanSymbol);
         System.out.println("Computer Symbol: " + computerSymbol);
+    }
+
+    static void makeHumanMove() {
+        int slot;
+
+        do {
+            slot = getUserSlot();
+
+            if (!isValidMove(slot)) {
+                System.out.println("Invalid move. Try again.");
+            }
+        } while (!isValidMove(slot));
+
+        placeMove(slot, humanSymbol);
+        System.out.println("Human placed move at slot: " + slot);
     }
 
     static int getUserSlot() {
