@@ -9,6 +9,7 @@ public class TicTacToe {
     static char computerSymbol;
 
     static Scanner scanner = new Scanner(System.in);
+    static Random random = new Random();
 
     public static void main(String[] args) {
         initializeBoard();
@@ -16,15 +17,9 @@ public class TicTacToe {
         displayTossResult();
         printBoard();
 
-        int slot = getUserSlot();
-
-        if (isValidMove(slot)) {
-            placeMove(slot, humanSymbol);
-            System.out.println("Move placed successfully.");
-            printBoard();
-        } else {
-            System.out.println("Invalid move.");
-        }
+        makeComputerMove();
+        System.out.println("Computer made a move.");
+        printBoard();
     }
 
     static void initializeBoard() {
@@ -36,7 +31,6 @@ public class TicTacToe {
     }
 
     static void tossAndAssignSymbols() {
-        Random random = new Random();
         int toss = random.nextInt(2);
 
         if (toss == 0) {
@@ -84,6 +78,17 @@ public class TicTacToe {
         int col = getColFromSlot(slot);
 
         board[row][col] = symbol;
+    }
+
+    static void makeComputerMove() {
+        int slot;
+
+        do {
+            slot = random.nextInt(9) + 1;
+        } while (!isValidMove(slot));
+
+        placeMove(slot, computerSymbol);
+        System.out.println("Computer chose slot: " + slot);
     }
 
     static int getRowFromSlot(int slot) {
