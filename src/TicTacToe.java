@@ -17,7 +17,7 @@ public class TicTacToe {
         displayTossResult();
         printBoard();
 
-        for (int turn = 1; turn <= 9; turn++) {
+        while (true) {
             char currentSymbol;
 
             if (isHumanTurn) {
@@ -36,13 +36,16 @@ public class TicTacToe {
                 } else {
                     System.out.println("Computer wins!");
                 }
-                return;
+                break;
+            }
+
+            if (isBoardFull()) {
+                System.out.println("Game is a draw!");
+                break;
             }
 
             isHumanTurn = !isHumanTurn;
         }
-
-        System.out.println("Game loop completed.");
     }
 
     static void initializeBoard() {
@@ -151,6 +154,18 @@ public class TicTacToe {
         }
 
         return false;
+    }
+
+    static boolean isBoardFull() {
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (board[row][col] == '-') {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     static int getRowFromSlot(int slot) {
